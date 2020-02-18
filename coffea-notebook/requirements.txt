@@ -1,0 +1,13 @@
+setuptools
+numpy
+six
+pytest
+cython
+pandas
+py4j
+scipy
+jinja2
+cloudpickle
+lz4
+blosc
+numba
