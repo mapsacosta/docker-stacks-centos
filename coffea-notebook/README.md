@@ -2,7 +2,7 @@
 
 # Jupyter Notebook Python, Scala, R, Spark, Mesos Stack + CMS COFFEA tools
 
-The image includes OSG grid tools, [https://github.com/cerndb/hadoop-xrootd] Hadoop-Xrootd connector and VOMS utils
+The image includes OSG grid tools, Hadoop-Xrootd[https://github.com/cerndb/hadoop-xrootd] connector and VOMS utils
 
 This notebook can be run as standalone, it has been built an published at DockerHub:
 
