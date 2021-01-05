@@ -8,26 +8,6 @@
 Jupyter Docker Stacks are a set of ready-to-run [Docker images](https://hub.docker.com/u/jupyter)
 containing Jupyter applications and interactive computing tools.
 
-## Maintainer Help Wanted
-
-We value all positive contributions to the Docker stacks project, from
-[bug reports](https://jupyter-docker-stacks.readthedocs.io/en/latest/contributing/issues.html) to
-[pull requests](https://jupyter-docker-stacks.readthedocs.io/en/latest/contributing/packages.html)
-to
-[translations](https://jupyter-docker-stacks.readthedocs.io/en/latest/contributing/translations.html)
-to help answering questions. We'd also like to invite members of the community to help with two
-maintainer activities:
-
-- Issue triage: Reading and providing a first response to issues, labeling issues appropriately,
-  redirecting cross-project questions to Jupyter Discourse
-- Pull request reviews: Reading proposed documentation and code changes, working with the submitter
-  to improve the contribution, deciding if the contribution should take another form (e.g., a recipe
-  instead of a permanent change to the images)
-
-Anyone in the community can jump in and help with these activities at any time. We will happily
-grant additional permissions (e.g., ability to merge PRs) to anyone who shows an on-going interest
-in working on the project.
-
 ## Quick Start
 
 You can try a
@@ -67,21 +47,6 @@ token printed in the console. Docker destroys the container after notebook serve
 files written to `~/work` in the container remain intact on the host.
 
     docker run --rm -p 10000:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work jupyter/datascience-notebook:9b06df75e445
-
-## Contributing
-
-Please see the [Contributor Guide on ReadTheDocs](http://jupyter-docker-stacks.readthedocs.io/) for
-information about how to contribute package updates, recipes, features, tests, and community
-maintained stacks.
-
-## Alternatives
-
-- [jupyter/repo2docker](https://github.com/jupyter/repo2docker) - Turn git repositories into
-  Jupyter-enabled Docker Images
-- [openshift/source-to-image](https://github.com/openshift/source-to-image) - A tool for
-  building/building artifacts from source and injecting into docker images
-- [jupyter-on-openshift/jupyter-notebooks](https://github.com/jupyter-on-openshift/jupyter-notebooks) -
-  OpenShift compatible S2I builder for basic notebook images
 
 ## Resources
 
