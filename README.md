@@ -8,6 +8,8 @@
 Jupyter Docker Stacks are a set of ready-to-run [Docker images](https://hub.docker.com/u/jupyter)
 containing Jupyter applications and interactive computing tools.
 
+This is a fork of the original docker stacks from Jupyter, adapted to Fermilab/CMS Grid computing needs. Includes xrootd/hadoop integrations and OSG tools such as voms-proxy-** commands and basic OSG worker node software.
+
 ## Quick Start
 
 You can try a
