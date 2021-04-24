@@ -7,7 +7,7 @@ import os
 import errno
 import stat
 
-c = get_config()
+c = get_config()  # noqa: F821
 c.NotebookApp.ip = '0.0.0.0'
 c.NotebookApp.port = 8888
 c.NotebookApp.open_browser = False
@@ -53,3 +53,5 @@ distinguished_name = req_distinguished_name
 # the environment
 if 'NB_UMASK' in os.environ:
     os.umask(int(os.environ['NB_UMASK'], 8))
+
+c.Spawner.default_url = '/lab'

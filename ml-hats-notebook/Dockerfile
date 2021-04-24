@@ -1,6 +1,6 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-FROM ssiregistry.fnal.gov:443/ecf-gco/jupyter:scipy_notebook_c7
+FROM ssiregistry.fnal.gov:443/ecf-gco/jupyter:base-notebook
 
 LABEL maintainer="Maria A. <macosta@fnal.gov>"
 
