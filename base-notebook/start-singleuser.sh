@@ -36,6 +36,4 @@ if [ ! -z "$JPY_HUB_API_URL" ]; then
 fi
 NOTEBOOK_BIN="jupyterhub-singleuser"
 
-jupyterhub-singleuser --help-all
-
 . /usr/local/bin/start.sh $NOTEBOOK_BIN $NOTEBOOK_ARGS "$@"
