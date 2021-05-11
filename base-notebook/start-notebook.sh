@@ -5,6 +5,9 @@
 set -e
 
 wrapper=""
+
+source /usr/bin/bootstrap.sh
+
 if [[ "${RESTARTABLE}" == "yes" ]]; then
     wrapper="run-one-constantly"
 fi

@@ -40,12 +40,22 @@ ARG miniforge_checksum="c56cc2da96043688c6bdb521d825de27754de0a342d5228ba3155cd9
 RUN yum -y update \
  && yum -y install \
     wget \
+    epel-release \
+    gettext \
     bzip2 \
     ca-certificates \
     sudo \
     locales \
     fonts-liberation \
     run-one \
+    wget \
+    nss_wrapper \
+    openssl \
+    emacs \
+    git \
+    unzip \
+    nano \
+    vim  \
  && yum clean all && rm -rf /var/cache/yum
 
 #RUN echo 'LANG="en_US.UTF-8"' > /etc/default/locale && \
@@ -149,22 +159,21 @@ CMD ["start-notebook.sh"]
 COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
 # Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
 COPY jupyter_notebook_config.py /etc/jupyter/
+COPY nsswitch.conf /etc/nsswitch.conf
+COPY bootstrap.sh /usr/bin/bootstrap.sh
+
+RUN mkdir -p /usr/local/share
+COPY passwd.template /usr/local/share/passwd.template
 
 # Fix permissions on /etc/jupyter as root
 USER root
 
-RUN yum -y update && \
-    yum -y install emacs \
-                   git \
-                   unzip \
-                   nano \
-                   vim
+RUN yum -y install nss_wrapper
 
 # Prepare upgrade to JupyterLab V3.0 #1205
 RUN sed -re "s/c.NotebookApp/c.ServerApp/g" \
     /etc/jupyter/jupyter_notebook_config.py > /etc/jupyter/jupyter_server_config.py
 
-RUN fix-permissions /etc/jupyter/
+RUN fix-permissions /etc/jupyter/ && \
+    chmod a+x /usr/bin/bootstrap.sh && chmod +r /etc/passwd && chmod +r /etc/group && chmod a+wr /usr/local/share/passwd.template
 
-# Switch back to jupyter to avoid accidental container runs as root
-USER $NB_UID
