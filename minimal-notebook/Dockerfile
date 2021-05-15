@@ -3,35 +3,31 @@ LABEL maintainer="Maria A. <macosta@fnal.gov>"
 
 USER root
 
+COPY config/repos/* /etc/yum.repos.d/
+
 # Install all OS dependencies for fully functional notebook server
-RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm ;\
-    rpm -Uvh https://repo.opensciencegrid.org/osg/3.5/osg-3.5-el7-release-latest.rpm ;\
-    /bin/sed -i '/^enabled=1/a priority=99' /etc/yum.repos.d/epel.repo
-
 RUN yum -y update && \
-    yum -y install epel-release \
-                   yum-plugin-priorities \
-                   osg-wn-client \
-                   redhat-lsb-core 
+    yum -y install epel-release yum-plugin-priorities redhat-lsb-core && yum clean all
 
-RUN yum -y install xrootd-client \
-                   xrootd-client-libs \
-                   python36-xrootd 
+RUN yum -y install osg-wn-client  \
+                   xrootd-client \
+                   xrootd-client-libs && \
+    yum clean all && rm -rf /var/cache/yum/*
 
-#Install HTCondor (development)
-RUN yum install -y wget sed ;\
-    /usr/bin/wget https://research.cs.wisc.edu/htcondor/yum/repo.d/htcondor-stable-rhel7.repo -O /etc/yum.repos.d/condor.repo ;\
-    /usr/bin/wget http://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor -O /etc/pki/rpm-gpg/RPM-GPG-KEY-HTCondor ;\
-    echo "priority=90" >> /etc/yum.repos.d/condor.repo ;\
-    echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-HTCondor" >> /etc/yum.repos.d/condor.repo
+RUN yum --enablerepo=eos,xrootd -y install eos-client eos-xrootd
 
-RUN yum install -y condor
-RUN yum clean all && rm -rf /var/cache/yum/*
+#Install HTCondor (stable)
+RUN yum install -y https://research.cs.wisc.edu/htcondor/repo/8.8/el7/release/htcondor-release-8.8-1.el7.noarch.rpm && \
+    yum install -y condor && \
+    yum clean all && rm -rf /var/cache/yum/*
 
-COPY config.d/* /etc/condor/config.d/
-COPY cmslpc-local-conf.py /usr/local/bin/cmslpc-local-conf.py 
+COPY config/config.d/* /etc/condor/config.d/
+COPY config/motd /etc/motd
+COPY config/lpc_aliases.sh /etc/profile.d/lpc_aliases.sh
+COPY config/cmslpc-local-conf.py /usr/local/bin/cmslpc-local-conf.py 
+COPY config/hooks/eosquota /usr/local/bin/eosquota
 
-RUN chmod a+x /usr/local/bin/cmslpc-local-conf.py
+RUN chmod a+x /usr/local/bin/cmslpc-local-conf.py && chmod +x /etc/profile.d/lpc_aliases.sh
 
 # Switch back to jupyter to avoid accidental container runs as root
 USER $NB_UID

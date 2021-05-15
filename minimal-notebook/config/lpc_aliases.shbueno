@@ -1,0 +1,15 @@
+#!/bin/sh
+
+export XRD_ROLES="  "
+export EOS_NOACCESS=1
+export EOS_KERNELCACHE=1
+export EOS_DIRECTIO=0
+export EOS_READAHEADSIZE=4000000
+export EOS_READCACHESIZE=0
+export EOS_MGM_URL="root://cmseos.fnal.gov"
+
+alias eosls='/usr/bin/eos root://cmseos.fnal.gov ls'
+alias eosmkdir='/usr/bin/eos root://cmseos.fnal.gov mkdir'
+alias eosrm='/usr/bin/eos root://cmseos.fnal.gov rm'
+alias eosgrpquota='/usr/local/bin/eosquota -g'
+alias xrdfsls='xrdfs root://cmseos.fnal.gov ls'
